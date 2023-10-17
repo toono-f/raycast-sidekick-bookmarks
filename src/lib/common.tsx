@@ -1,7 +1,7 @@
 import { join } from "path";
 import { homedir } from "os";
 import * as fs from "fs";
-import { Bookmark } from "../types";
+import { Bookmark, Node } from "../types";
 
 export const filterBookmarks = (bookmarks: Bookmark[], searchText: string) => {
   if (!searchText) return bookmarks;
@@ -11,14 +11,6 @@ export const filterBookmarks = (bookmarks: Bookmark[], searchText: string) => {
   );
 };
 
-type Node = {
-  name: string;
-  guid: string;
-  type: string;
-  url: string;
-  children?: Node[];
-};
-const BOOKMARKS_PATH = join(homedir(), "/Library/Application Support/Sidekick/Default/Bookmarks");
 class SidekickBookmarkVisitor {
   bookmarks: Bookmark[] = [];
   visit(node: Node) {
@@ -39,6 +31,7 @@ const walkEdge = (node: Node, visitor: SidekickBookmarkVisitor) => {
       break;
   }
 };
+const BOOKMARKS_PATH = join(homedir(), "/Library/Application Support/Sidekick/Default/Bookmarks");
 const parseSidekickBookmarks = (): Bookmark[] => {
   const data = fs.readFileSync(BOOKMARKS_PATH, "utf-8");
   const json = JSON.parse(data);

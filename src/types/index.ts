@@ -3,3 +3,11 @@ export type Bookmark = {
   url: string;
   guid: string;
 };
+
+export type Node = {
+  name: string;
+  guid: string;
+  type: string;
+  url: string;
+  children?: Node[];
+};
