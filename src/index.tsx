@@ -1,7 +1,7 @@
 import { List } from "@raycast/api";
 import { useMemo, useState } from "react";
-import { allBookmarks, filterBookmarks } from "./function";
-import { BookmarkListItem } from "./BookmarkListItem";
+import { allBookmarks, filterBookmarks } from "./lib/common";
+import { BookmarkListItem } from "./components/BookmarkListItem";
 
 const SidekickBookmarksCommand = () => {
   const [searchText, setSearchText] = useState("");

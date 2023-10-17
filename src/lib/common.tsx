@@ -1,7 +1,7 @@
 import { join } from "path";
 import { homedir } from "os";
 import * as fs from "fs";
-import { Bookmark } from "./type";
+import { Bookmark } from "../types";
 
 export const filterBookmarks = (bookmarks: Bookmark[], searchText: string) => {
   if (!searchText) return bookmarks;

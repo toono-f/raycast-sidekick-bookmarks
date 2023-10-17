@@ -1,6 +1,6 @@
 import { ActionPanel, Action, List } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
-import { Bookmark } from "./type";
+import { Bookmark } from "../types";
 
 export const BookmarkListItem = ({ bookmark }: { bookmark: Bookmark }) => (
   <List.Item
