@@ -3,7 +3,7 @@
   "name": "raycast-sidekick-bookmarks",
   "title": "raycast sidekick bookmarks",
   "description": "raycast sidekick bookmarks",
-  "icon": "sidekick.jpg",
+  "icon": "assets/sidekick.jpg",
   "author": "toono-f",
   "license": "MIT",
   "commands": [
