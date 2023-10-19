@@ -7,7 +7,6 @@ import { Bookmark } from "./types";
 const SidekickBookmarksCommand = () => {
   const [searchText, setSearchText] = useState("");
   const filteredBookmarks = useMemo(() => filterBookmarks(allBookmarks, searchText), [searchText]);
-  // TODO: nameがからのものは除外したい
   const [historyList, setHistoryList] = useState<Bookmark[]>([]);
 
   useEffect(() => {

@@ -4,9 +4,10 @@ import * as fs from "fs";
 import { Bookmark, Node } from "../types";
 
 export const filterBookmarks = (bookmarks: Bookmark[], searchText: string) => {
-  if (!searchText) return bookmarks;
+  const trimmedBookmarks = bookmarks.filter((bookmark) => bookmark.name && bookmark.name.length > 1);
+  if (!searchText) return trimmedBookmarks;
   const searchLower = searchText.toLowerCase();
-  return bookmarks.filter(
+  return trimmedBookmarks.filter(
     (bookmark) => bookmark.name.toLowerCase().includes(searchLower) || bookmark.url.toLowerCase().includes(searchLower)
   );
 };
