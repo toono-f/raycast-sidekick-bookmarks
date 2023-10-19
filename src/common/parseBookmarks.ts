@@ -1,6 +1,8 @@
-import * as fs from "fs";
+import { readFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
+
+// const read = promisify(readFile);
 
 // TODO: 全体的に最適化検討
 type NodeType = {
@@ -14,7 +16,7 @@ type NodeType = {
 export type BookmarkType = Pick<NodeType, "name" | "url" | "guid">;
 
 export const parseBookmarks = (): BookmarkType[] => {
-  const data = fs.readFileSync(BOOKMARKS_PATH, "utf-8");
+  const data = readFileSync(BOOKMARKS_PATH, "utf-8");
 
   const parsedData = JSON.parse(data) as { roots: Record<string, NodeType> };
 
@@ -61,3 +63,35 @@ const traverseBookmarkTree = (
       break;
   }
 };
+
+// export async function getChromiumProfiles(path: string) {
+//   if (!existsSync(`${path}/Local State`)) {
+//     return { profiles: [], defaultProfile: "" };
+//   }
+
+//   const file = await read(`${path}/Local State`, "utf-8");
+//   const localState = JSON.parse(file);
+
+//   const profileInfoCache: Record<string, any> = localState.profile.info_cache;
+
+//   const profiles = Object.entries(profileInfoCache)
+//     // Only keep profiles that have bookmarks
+//     .filter(([profilePath]) => {
+//       const profileDirectory = readdirSync(`${path}/${profilePath}`);
+//       return profileDirectory.includes("Bookmarks");
+//     })
+//     .map(([path, profile]) => {
+//       return {
+//         path,
+//         name: profile.name,
+//       };
+//     });
+
+//   const defaultProfile =
+//     localState.profile?.last_used?.length > 0
+//       ? localState.profile.last_used
+//       : profiles[0].path;
+
+//   profiles.sort((a, b) => a.name.localeCompare(b.name));
+//   return { profiles, defaultProfile };
+// }
