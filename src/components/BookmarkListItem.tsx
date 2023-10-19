@@ -1,5 +1,6 @@
-import { ActionPanel, Action, List } from "@raycast/api";
+import { Action, ActionPanel, List } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
+
 import { Bookmark } from "../lib/parseSidekickBookmarks";
 
 type Props = {

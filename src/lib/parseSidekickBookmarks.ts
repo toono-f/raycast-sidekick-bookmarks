@@ -1,6 +1,6 @@
-import { join } from "path";
-import { homedir } from "os";
 import * as fs from "fs";
+import { homedir } from "os";
+import { join } from "path";
 
 export type Bookmark = Pick<Node, "name" | "url" | "guid">;
 
