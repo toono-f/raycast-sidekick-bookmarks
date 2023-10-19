@@ -41,10 +41,11 @@ const walkEdge = (node: Node, visitor: (node: Node) => void) => {
   }
 };
 // TODO: アカウントを切り替えられるようにする
-// const BOOKMARKS_PATH = join(
-//   homedir(),
-//   "/Library/Application Support/Sidekick/Default/Bookmarks"
-// );
+const BOOKMARKS_PATH = join(
+  homedir(),
+  "/Library/Application Support/Sidekick/Default/Bookmarks"
+  // "/Library/Application Support/Sidekick/Profile 1/Bookmarks"
+);
 
 export const parseSidekickBookmarks = (): Bookmark[] => {
   const data = fs.readFileSync(BOOKMARKS_PATH, "utf-8");
