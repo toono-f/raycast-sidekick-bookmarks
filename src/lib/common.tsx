@@ -16,20 +16,24 @@ export const filterBookmarks = (bookmarks: Bookmark[], searchText: string) => {
   );
 };
 
-class SidekickBookmarkVisitor {
-  bookmarks: Bookmark[] = [];
-  visit(node: Node) {
-    this.bookmarks.push({
+const sidekickBookmarkVisitor = () => {
+  const bookmarks: Bookmark[] = [];
+
+  const visit = (node: Node) => {
+    bookmarks.push({
       name: node.name,
       url: node.url,
       guid: node.guid,
     });
-  }
-}
-const walkEdge = (node: Node, visitor: SidekickBookmarkVisitor) => {
+  };
+
+  return { bookmarks, visit };
+};
+
+const walkEdge = (node: Node, visitor: (node: Node) => void) => {
   switch (node.type) {
     case "url":
-      visitor.visit(node);
+      visitor(node);
       break;
     case "folder":
       node.children?.forEach((child) => walkEdge(child, visitor));
@@ -45,9 +49,9 @@ const walkEdge = (node: Node, visitor: SidekickBookmarkVisitor) => {
 export const parseSidekickBookmarks = (): Bookmark[] => {
   const data = fs.readFileSync(BOOKMARKS_PATH, "utf-8");
   const json = JSON.parse(data);
-  const parser = new SidekickBookmarkVisitor();
+  const { bookmarks, visit } = sidekickBookmarkVisitor();
   ["bookmark_bar", "other"].forEach((path) =>
-    walkEdge(json.roots[path], parser)
+    walkEdge(json.roots[path], visit)
   );
-  return parser.bookmarks;
+  return bookmarks;
 };
