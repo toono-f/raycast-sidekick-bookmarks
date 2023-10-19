@@ -2,16 +2,23 @@ import { ActionPanel, Action, List } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
 import { Bookmark } from "../types";
 
-export const BookmarkListItem = ({ bookmark }: { bookmark: Bookmark }) => (
-  <List.Item
-    icon={getFavicon(bookmark.url)}
-    title={bookmark.name}
-    actions={
-      <ActionPanel>
-        <ActionPanel.Section>
-          <Action.OpenInBrowser title="Open in Browser" url={bookmark.url} />
-        </ActionPanel.Section>
-      </ActionPanel>
-    }
-  />
-);
+type Props = {
+  bookmark: Bookmark;
+  onClick: (bookmark: Bookmark) => void;
+};
+
+export const BookmarkListItem = ({ bookmark, onClick }: Props) => {
+  return (
+    <List.Item
+      icon={getFavicon(bookmark.url)}
+      title={bookmark.name}
+      actions={
+        <ActionPanel>
+          <ActionPanel.Section>
+            <Action title="Open in Browser" onAction={() => onClick(bookmark)} />
+          </ActionPanel.Section>
+        </ActionPanel>
+      }
+    />
+  );
+};
