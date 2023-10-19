@@ -9,16 +9,14 @@ import { useHistory } from "./hooks/useHistory";
 const Command = () => {
   const [searchText, setSearchText] = useState("");
 
-  const allBookmarks = parseBookmarks();
+  const bookmarks = parseBookmarks();
   const filteredBookmarks = useMemo(
-    () => filterBookmarks(allBookmarks, searchText),
-    [allBookmarks, searchText]
+    () => filterBookmarks(bookmarks, searchText),
+    [bookmarks, searchText]
   );
 
   const history = useHistory();
-  // useEffect(() => {
-  //   LocalStorage.clear();
-  // });
+  // useEffect(() => LocalStorage.clear(), []);
 
   return (
     <List

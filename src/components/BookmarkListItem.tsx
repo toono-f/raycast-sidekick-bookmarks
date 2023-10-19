@@ -1,4 +1,4 @@
-import { Action, ActionPanel, List, LocalStorage } from "@raycast/api";
+import { Action, ActionPanel, List, LocalStorage, open } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
 
 import { getBookmarkHistory } from "../common/getBookmarkHistory";
