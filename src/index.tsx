@@ -1,6 +1,6 @@
 import { List, LocalStorage, open } from "@raycast/api";
 import { useEffect, useMemo, useState } from "react";
-import { filterBookmarks } from "./lib/common";
+import { filterBookmarks } from "./lib/filterBookmarks";
 import { BookmarkListItem } from "./components/BookmarkListItem";
 import { Bookmark, parseSidekickBookmarks } from "./lib/parseSidekickBookmarks";
 
