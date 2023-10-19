@@ -57,11 +57,12 @@ const SidekickBookmarksCommand = () => {
   return (
     <List
       onSearchTextChange={setSearchText}
-      searchBarPlaceholder="Search Sidekick bookmarks..."
+      searchBarPlaceholder="Search bookmarks..."
       throttle
     >
+      <List.Item title={""} subtitle={`${filteredBookmarks.length} posts`} />
       {!searchText && (
-        <List.Section title={"History"} subtitle={String(historyList.length)}>
+        <List.Section title={"History"}>
           {historyList.map((bookmark) => (
             <BookmarkListItem
               key={bookmark.guid}
@@ -71,10 +72,7 @@ const SidekickBookmarksCommand = () => {
           ))}
         </List.Section>
       )}
-      <List.Section
-        title={"Results"}
-        subtitle={String(filteredBookmarks.length)}
-      >
+      <List.Section title={"Results"}>
         {filteredBookmarks.map((bookmark) => (
           <BookmarkListItem
             key={bookmark.guid}
