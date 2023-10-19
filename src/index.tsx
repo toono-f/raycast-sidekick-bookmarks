@@ -1,7 +1,7 @@
 import { List } from "@raycast/api";
 import { useMemo, useState } from "react";
 
-import { filterBookmarks } from "./common/filterBookmarks";
+import { filterValidAndSearchedBookmarks } from "./common/filterValidAndSearchedBookmarks";
 import { parseBookmarks } from "./common/parseBookmarks";
 import { BookmarkListItem } from "./components/BookmarkListItem";
 import { useHistory } from "./hooks/useHistory";
@@ -11,7 +11,7 @@ const Command = () => {
 
   const bookmarks = parseBookmarks();
   const filteredBookmarks = useMemo(
-    () => filterBookmarks(bookmarks, searchText),
+    () => filterValidAndSearchedBookmarks(bookmarks, searchText),
     [bookmarks, searchText]
   );
 
