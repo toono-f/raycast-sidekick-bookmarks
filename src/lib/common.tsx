@@ -41,12 +41,8 @@ const walkEdge = (node: Node, visitor: SidekickBookmarkVisitor) => {
 //   homedir(),
 //   "/Library/Application Support/Sidekick/Default/Bookmarks"
 // );
-const BOOKMARKS_PATH = join(
-  homedir(),
-  "/Library/Application Support/Sidekick/Profile 1/Bookmarks"
-);
 
-const parseSidekickBookmarks = (): Bookmark[] => {
+export const parseSidekickBookmarks = (): Bookmark[] => {
   const data = fs.readFileSync(BOOKMARKS_PATH, "utf-8");
   const json = JSON.parse(data);
   const parser = new SidekickBookmarkVisitor();
@@ -55,4 +51,3 @@ const parseSidekickBookmarks = (): Bookmark[] => {
   );
   return parser.bookmarks;
 };
-export const allBookmarks = parseSidekickBookmarks();

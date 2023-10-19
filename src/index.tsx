@@ -1,11 +1,13 @@
 import { List, LocalStorage, open } from "@raycast/api";
 import { useEffect, useMemo, useState } from "react";
-import { allBookmarks, filterBookmarks } from "./lib/common";
+import { filterBookmarks, parseSidekickBookmarks } from "./lib/common";
 import { BookmarkListItem } from "./components/BookmarkListItem";
 import { Bookmark } from "./types";
 
 const SidekickBookmarksCommand = () => {
   const [searchText, setSearchText] = useState("");
+
+  const allBookmarks = parseSidekickBookmarks();
   const filteredBookmarks = useMemo(
     () => filterBookmarks(allBookmarks, searchText),
     [searchText]
