@@ -2,20 +2,20 @@ import * as fs from "fs";
 import { homedir } from "os";
 import { join } from "path";
 
-export type Bookmark = Pick<Node, "name" | "url" | "guid">;
-
-type Node = {
+type NodeType = {
   name: string;
   guid: string;
   type: string;
   url: string;
-  children?: Node[];
+  children?: NodeType[];
 };
 
-export const parseSidekickBookmarks = (): Bookmark[] => {
-  const data = fs.readFileSync(SIDEKICK_BOOKMARKS_PATH, "utf-8");
+export type BookmarkType = Pick<NodeType, "name" | "url" | "guid">;
 
-  const parsedData = JSON.parse(data) as { roots: Record<string, Node> };
+export const parseBookmarks = (): BookmarkType[] => {
+  const data = fs.readFileSync(BOOKMARKS_PATH, "utf-8");
+
+  const parsedData = JSON.parse(data) as { roots: Record<string, NodeType> };
 
   const { bookmarks, addBookmark } = bookmarkHandler();
 
@@ -27,16 +27,16 @@ export const parseSidekickBookmarks = (): Bookmark[] => {
 };
 
 // TODO: プロファイルを選択できるようにする
-const SIDEKICK_BOOKMARKS_PATH = join(
+const BOOKMARKS_PATH = join(
   homedir(),
   "/Library/Application Support/Sidekick/Default/Bookmarks"
   // '/Library/Application Support/Sidekick/Profile 1/Bookmarks'
 );
 
 const bookmarkHandler = () => {
-  const bookmarks: Bookmark[] = [];
+  const bookmarks: BookmarkType[] = [];
 
-  const addBookmark = (bookmark: Node) => {
+  const addBookmark = (bookmark: NodeType) => {
     bookmarks.push({
       name: bookmark.name,
       url: bookmark.url,
@@ -47,7 +47,10 @@ const bookmarkHandler = () => {
   return { bookmarks, addBookmark };
 };
 
-const traverseBookmarkTree = (node: Node, callback: (node: Node) => void) => {
+const traverseBookmarkTree = (
+  node: NodeType,
+  callback: (node: NodeType) => void
+) => {
   switch (node.type) {
     case "url":
       callback(node);

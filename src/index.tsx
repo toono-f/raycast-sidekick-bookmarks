@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import { BookmarkListItem } from "./components/BookmarkListItem";
 import { useHistory } from "./hooks/useHistory";
 import { filterBookmarks } from "./lib/filterBookmarks";
-import { parseSidekickBookmarks } from "./lib/parseSidekickBookmarks";
+import { parseBookmarks } from "./lib/parseBookmarks";
 
 const Command = () => {
   const [searchText, setSearchText] = useState("");
 
-  const allBookmarks = parseSidekickBookmarks();
+  const allBookmarks = parseBookmarks();
   const filteredBookmarks = useMemo(
     () => filterBookmarks(allBookmarks, searchText),
     [allBookmarks, searchText]

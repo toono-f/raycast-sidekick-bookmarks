@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { getBookmarkHistoryFromLocalStorage } from "../lib/getBookmarkHistoryFromLocalStorage";
-import { Bookmark } from "../lib/parseSidekickBookmarks";
+import { BookmarkType } from "../lib/parseBookmarks";
 
 export const useHistory = () => {
-  const [history, setHistory] = useState<Bookmark[]>([]);
+  const [history, setHistory] = useState<BookmarkType[]>([]);
   useEffect(() => {
     (async () => {
       const history = await getBookmarkHistoryFromLocalStorage();

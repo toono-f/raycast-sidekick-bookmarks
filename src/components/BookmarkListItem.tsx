@@ -2,10 +2,10 @@ import { Action, ActionPanel, List, LocalStorage } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
 
 import { getBookmarkHistoryFromLocalStorage } from "../lib/getBookmarkHistoryFromLocalStorage";
-import { Bookmark } from "../lib/parseSidekickBookmarks";
+import { BookmarkType } from "../lib/parseBookmarks";
 
 type Props = {
-  bookmark: Bookmark;
+  bookmark: BookmarkType;
 };
 
 export const BookmarkListItem = ({ bookmark }: Props) => {
@@ -30,7 +30,7 @@ export const BookmarkListItem = ({ bookmark }: Props) => {
   );
 };
 
-const updateHistoryAndOpenBookmark = async (bookmark: Bookmark) => {
+const updateHistoryAndOpenBookmark = async (bookmark: BookmarkType) => {
   const history = await getBookmarkHistoryFromLocalStorage();
   const uniqueHistory = history.filter((item) => item.url !== bookmark.url);
   const updatedHistory = [bookmark, ...uniqueHistory].slice(0, 7);

@@ -1,6 +1,9 @@
-import { Bookmark } from "./parseSidekickBookmarks";
+import { BookmarkType } from "./parseBookmarks";
 
-export const filterBookmarks = (bookmarks: Bookmark[], searchText: string) => {
+export const filterBookmarks = (
+  bookmarks: BookmarkType[],
+  searchText: string
+) => {
   const trimmedBookmarks = bookmarks.filter(
     (bookmark) => bookmark.name && bookmark.name.length > 1
   );
