@@ -14,22 +14,28 @@ const SidekickBookmarksCommand = () => {
       const history = await LocalStorage.getItem("history");
       if (typeof history === "string") {
         const array = history.split(" && ").map((item) => JSON.parse(item));
-        // TODO: 重複を削除したい（localStorageにセットする時に行いたい）
         const uniqueArray = array.filter((item, index, self) => self.findIndex((v) => v.guid === item.guid) === index);
-        // TODO: 最大10件までにしたい（localStorageにセットする時に行いたい）
-        const slicedArray = uniqueArray.slice(0, 10);
 
-        const reversedArray = slicedArray.reverse();
-        setHistoryList(reversedArray as unknown as Bookmark[]);
+        setHistoryList(uniqueArray as unknown as Bookmark[]);
       }
     };
     getHistory();
+
+    // エラーがあった場合は上記コメントアウトしてLocalStorage.clear();
   }, []);
 
   const saveHistory = async (bookmark: Bookmark) => {
     const history = await LocalStorage.getItem("history");
     if (history) {
-      await LocalStorage.setItem("history", `${history} && ${JSON.stringify(bookmark)}`);
+      // TODO: 8件以上保存しないようにする（リファクタ検討）
+      const historyArray = String(history)
+        .split(" && ")
+        .map((item) => JSON.parse(item));
+      const slicedArray = historyArray.slice(0, 7);
+      const stringifiedArray = slicedArray.map((item) => JSON.stringify(item));
+      const resultString = stringifiedArray.join(" && ");
+
+      await LocalStorage.setItem("history", `${JSON.stringify(bookmark)} && ${resultString}`);
     } else {
       await LocalStorage.setItem("history", JSON.stringify(bookmark));
     }
