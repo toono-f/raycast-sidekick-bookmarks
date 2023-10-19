@@ -1,10 +1,10 @@
 import { List } from "@raycast/api";
 import { useMemo, useState } from "react";
 
+import { filterBookmarks } from "./common/filterBookmarks";
+import { parseBookmarks } from "./common/parseBookmarks";
 import { BookmarkListItem } from "./components/BookmarkListItem";
 import { useHistory } from "./hooks/useHistory";
-import { filterBookmarks } from "./lib/filterBookmarks";
-import { parseBookmarks } from "./lib/parseBookmarks";
 
 const Command = () => {
   const [searchText, setSearchText] = useState("");
