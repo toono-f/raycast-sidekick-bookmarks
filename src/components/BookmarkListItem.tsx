@@ -1,6 +1,6 @@
 import { ActionPanel, Action, List } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
-import { Bookmark } from "../types";
+import { Bookmark } from "../lib/parseSidekickBookmarks";
 
 type Props = {
   bookmark: Bookmark;
@@ -12,6 +12,9 @@ export const BookmarkListItem = ({ bookmark, onClick }: Props) => {
     <List.Item
       icon={getFavicon(bookmark.url)}
       title={bookmark.name}
+      subtitle={bookmark.url}
+      // TODO: フォルダ情報を記載する
+      // accessories={[{ icon: folder.icon, title: folder.name }]}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
