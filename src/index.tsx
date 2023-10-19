@@ -5,54 +5,41 @@ import { BookmarkListItem } from "./components/BookmarkListItem";
 import { filterBookmarks } from "./lib/filterBookmarks";
 import { Bookmark, parseSidekickBookmarks } from "./lib/parseSidekickBookmarks";
 
-const SidekickBookmarksCommand = () => {
+const getBookmarkHistoryFromLocalStorage = async (): Promise<Bookmark[]> => {
+  const bookmarkHistoryData = await LocalStorage.getItem("history");
+  return typeof bookmarkHistoryData === "string"
+    ? JSON.parse(bookmarkHistoryData)
+    : [];
+};
+
+const updateHistoryAndOpenBookmark = async (bookmark: Bookmark) => {
+  const history = await getBookmarkHistoryFromLocalStorage();
+  const uniqueHistory = history.filter((item) => item.url !== bookmark.url);
+  const updatedHistory = [bookmark, ...uniqueHistory].slice(0, 7);
+  await LocalStorage.setItem("history", JSON.stringify(updatedHistory));
+  open(bookmark.url);
+};
+
+const Command = () => {
   const [searchText, setSearchText] = useState("");
 
   const allBookmarks = parseSidekickBookmarks();
   const filteredBookmarks = useMemo(
     () => filterBookmarks(allBookmarks, searchText),
-    [searchText]
+    [allBookmarks, searchText]
   );
-  const [historyList, setHistoryList] = useState<Bookmark[]>([]);
 
+  const [history, setHistory] = useState<Bookmark[]>([]);
   useEffect(() => {
-    const getHistory = async () => {
-      const history = await LocalStorage.getItem("history");
-      if (typeof history === "string") {
-        const array = history.split(" && ").map((item) => JSON.parse(item));
-        const uniqueArray = array.filter(
-          (item, index, self) =>
-            self.findIndex((v) => v.guid === item.guid) === index
-        );
+    (async () => {
+      const history = await getBookmarkHistoryFromLocalStorage();
+      setHistory(history);
+    })();
+  }, [setHistory]);
 
-        setHistoryList(uniqueArray as unknown as Bookmark[]);
-      }
-    };
-    getHistory();
-
-    // エラーがあった場合は上記コメントアウトしてLocalStorage.clear();
-  }, []);
-
-  const saveHistory = async (bookmark: Bookmark) => {
-    const history = await LocalStorage.getItem("history");
-    if (history) {
-      // TODO: 8件以上保存しないようにする（リファクタ検討）
-      const historyArray = String(history)
-        .split(" && ")
-        .map((item) => JSON.parse(item));
-      const slicedArray = historyArray.slice(0, 7);
-      const stringifiedArray = slicedArray.map((item) => JSON.stringify(item));
-      const resultString = stringifiedArray.join(" && ");
-
-      await LocalStorage.setItem(
-        "history",
-        `${JSON.stringify(bookmark)} && ${resultString}`
-      );
-    } else {
-      await LocalStorage.setItem("history", JSON.stringify(bookmark));
-    }
-    open(bookmark.url);
-  };
+  // useEffect(() => {
+  //   LocalStorage.clear();
+  // });
 
   return (
     <List
@@ -63,11 +50,11 @@ const SidekickBookmarksCommand = () => {
       <List.Item title={""} subtitle={`${filteredBookmarks.length} posts`} />
       {!searchText && (
         <List.Section title={"History"}>
-          {historyList.map((bookmark) => (
+          {history.map((bookmark) => (
             <BookmarkListItem
               key={bookmark.guid}
               bookmark={bookmark}
-              onClick={saveHistory}
+              onClick={updateHistoryAndOpenBookmark}
             />
           ))}
         </List.Section>
@@ -77,7 +64,7 @@ const SidekickBookmarksCommand = () => {
           <BookmarkListItem
             key={bookmark.guid}
             bookmark={bookmark}
-            onClick={saveHistory}
+            onClick={updateHistoryAndOpenBookmark}
           />
         ))}
       </List.Section>
@@ -85,4 +72,4 @@ const SidekickBookmarksCommand = () => {
   );
 };
 
-export default SidekickBookmarksCommand;
+export default Command;
