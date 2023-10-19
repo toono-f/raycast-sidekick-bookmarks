@@ -2,9 +2,9 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "raycast-sidekick-bookmarks",
   "title": "raycast sidekick bookmarks",
-  "description": "",
-  "icon": "sidekick.jpeg",
-  "author": "1188838a99ef",
+  "description": "raycast sidekick bookmarks",
+  "icon": "sidekick.jpg",
+  "author": "toono-f",
   "license": "MIT",
   "commands": [
     {
@@ -29,10 +29,10 @@
     "typescript": "5.1.6"
   },
   "scripts": {
-    "build": "ray build -e dist",
     "dev": "ray develop",
-    "fix-lint": "ray lint --fix",
+    "build": "ray build -e dist",
     "lint": "ray lint",
+    "fix-lint": "ray lint --fix",
     "publish": "ray publish"
   }
 }

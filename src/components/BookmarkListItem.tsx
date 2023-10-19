@@ -15,7 +15,10 @@ export const BookmarkListItem = ({ bookmark, onClick }: Props) => {
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <Action title="Open in Browser" onAction={() => onClick(bookmark)} />
+            <Action
+              title="Open in Browser"
+              onAction={() => onClick(bookmark)}
+            />
           </ActionPanel.Section>
         </ActionPanel>
       }
