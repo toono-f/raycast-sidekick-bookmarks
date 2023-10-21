@@ -2,14 +2,15 @@ import { List } from "@raycast/api";
 import { useMemo, useState } from "react";
 
 import { filterValidAndSearchedBookmarks } from "./common/filterValidAndSearchedBookmarks";
-import { parseBookmarks } from "./common/parseBookmarks";
+import { AccountType, parseBookmarks } from "./common/parseBookmarks";
 import { BookmarkListItem } from "./components/BookmarkListItem";
 import { useHistory } from "./hooks/useHistory";
 
 const Command = () => {
   const [searchText, setSearchText] = useState("");
+  const [account, setAccount] = useState<AccountType>("default");
 
-  const bookmarks = parseBookmarks();
+  const bookmarks = parseBookmarks(account);
   const filteredBookmarks = useMemo(
     () => filterValidAndSearchedBookmarks(bookmarks, searchText),
     [bookmarks, searchText]
@@ -22,6 +23,17 @@ const Command = () => {
     <List
       onSearchTextChange={setSearchText}
       searchBarPlaceholder="Search bookmarks..."
+      searchBarAccessory={
+        <List.Dropdown
+          tooltip={"Select Account"}
+          storeValue={true}
+          onChange={(newValue) => setAccount(newValue as AccountType)}
+        >
+          <List.Dropdown.Section>
+            <List.Dropdown.Item key={1} title={"default"} value={"default"} />
+          </List.Dropdown.Section>
+        </List.Dropdown>
+      }
       throttle
     >
       <List.Item title={""} subtitle={`${filteredBookmarks.length} posts`} />

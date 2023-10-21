@@ -13,10 +13,14 @@ type NodeType = {
   children?: NodeType[];
 };
 
+export type AccountType = "default";
+
 export type BookmarkType = Pick<NodeType, "name" | "url" | "guid">;
 
-export const parseBookmarks = (): BookmarkType[] => {
-  const data = readFileSync(BOOKMARKS_PATH, "utf-8");
+export const parseBookmarks = (account: AccountType): BookmarkType[] => {
+  const bookmarkPath = join(homedir(), selectAcount(account));
+
+  const data = readFileSync(bookmarkPath, "utf-8");
 
   const parsedData = JSON.parse(data) as { roots: Record<string, NodeType> };
 
@@ -29,12 +33,15 @@ export const parseBookmarks = (): BookmarkType[] => {
   return bookmarks;
 };
 
-// TODO: プロファイルを選択できるようにする
-const BOOKMARKS_PATH = join(
-  homedir(),
-  "/Library/Application Support/Sidekick/Default/Bookmarks"
-  // '/Library/Application Support/Sidekick/Profile 1/Bookmarks'
-);
+// TODO: 全プロファイルから選べるようにする
+const selectAcount = (account: string) => {
+  switch (account) {
+    // case "work":
+    //   return "/Library/Application Support/Sidekick/Profile 1/Bookmarks";
+    default:
+      return "/Library/Application Support/Sidekick/Default/Bookmarks";
+  }
+};
 
 const bookmarkHandler = () => {
   const bookmarks: BookmarkType[] = [];
