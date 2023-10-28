@@ -13,7 +13,7 @@ type NodeType = {
   children?: NodeType[];
 };
 
-export type AccountType = "default";
+export type AccountType = "work" | "home" | "default";
 
 export type BookmarkType = Pick<NodeType, "name" | "url" | "guid">;
 
@@ -36,8 +36,10 @@ export const parseBookmarks = (account: AccountType): BookmarkType[] => {
 // TODO: 全プロファイルから選べるようにする
 const selectAcount = (account: string) => {
   switch (account) {
-    // case "work":
-    //   return "/Library/Application Support/Sidekick/Profile 1/Bookmarks";
+    case "work":
+      return "/Library/Application Support/Sidekick/Profile 1/Bookmarks";
+    case "home":
+      return "/Library/Application Support/Sidekick/Default/Bookmarks";
     default:
       return "/Library/Application Support/Sidekick/Default/Bookmarks";
   }
