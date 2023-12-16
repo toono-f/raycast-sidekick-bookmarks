@@ -1,10 +1,8 @@
 import { readFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
-
 // const read = promisify(readFile);
 
-// TODO: 全体的に最適化検討
 type NodeType = {
   name: string;
   guid: string;
