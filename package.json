@@ -20,40 +20,6 @@
       "mode": "view",
       "preferences": [
         {
-          "name": "firstInResults",
-          "type": "dropdown",
-          "required": false,
-          "title": "First in results",
-          "description": "Which browser history shows up first in results",
-          "data": [
-            {
-              "title": "Sidekick",
-              "value": "Sidekick"
-            }
-          ]
-        },
-        {
-          "name": "defaultBrowser",
-          "type": "dropdown",
-          "required": false,
-          "title": "Default browser to open in",
-          "description": "Which browser opens upon pressing enter on an entry",
-          "data": [
-            {
-              "title": "Sidekick",
-              "value": "Sidekick"
-            }
-          ]
-        },
-        {
-          "name": "enableSidekick",
-          "type": "checkbox",
-          "required": false,
-          "description": "Enable Firefox history to show up in results",
-          "default": false,
-          "label": "Sidekick"
-        },
-        {
           "name": "profilePathSidekick",
           "type": "textfield",
           "required": false,
