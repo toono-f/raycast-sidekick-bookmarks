@@ -1,9 +1,12 @@
 import path from "path";
 import { getPreferenceValues } from "@raycast/api";
 import { readFileSync } from "fs";
-import { Preferences } from "../interfaces";
-import { defaultProfilePathSidekick } from "../constants";
+import { defaultProfilePathSidekick } from "./constants";
 // const read = promisify(readFile);
+
+interface Preferences {
+  readonly profilePathSidekick?: string;
+}
 
 type NodeType = {
   name: string;
