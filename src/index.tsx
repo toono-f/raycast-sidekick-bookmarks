@@ -8,7 +8,7 @@ import { useHistory } from "./hooks/useHistory";
 
 const Command = () => {
   const [searchText, setSearchText] = useState("");
-  const [account, setAccount] = useState<AccountType>("work");
+  const [account, setAccount] = useState<AccountType>("profile");
 
   const bookmarks = parseBookmarks(account);
   const filteredBookmarks = useMemo(
@@ -31,10 +31,10 @@ const Command = () => {
           onChange={(newValue) => setAccount(newValue as AccountType)}
         >
           <List.Dropdown.Section>
-            <List.Dropdown.Item key={1} title={"work"} value={"work"} />
+            <List.Dropdown.Item key={1} title={"default"} value={"default"} />
           </List.Dropdown.Section>
           <List.Dropdown.Section>
-            <List.Dropdown.Item key={1} title={"home"} value={"home"} />
+            <List.Dropdown.Item key={1} title={"profile"} value={"profile"} />
           </List.Dropdown.Section>
         </List.Dropdown>
       }
