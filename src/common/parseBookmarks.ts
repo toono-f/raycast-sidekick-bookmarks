@@ -72,6 +72,7 @@ const traverseBookmarkTree = (
   }
 };
 
+// TODO: プロファイルを取得したい場合は以下を参考にする
 // export async function getChromiumProfiles(path: string) {
 //   if (!existsSync(`${path}/Local State`)) {
 //     return { profiles: [], defaultProfile: "" };
