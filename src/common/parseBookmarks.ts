@@ -33,16 +33,15 @@ export const parseBookmarks = (account: AccountType): BookmarkType[] => {
   return bookmarks;
 };
 
-// TODO: 全プロファイルから選べるようにする
 const selectAcount = (account: string) => {
-  switch (account) {
-    case "work":
-      return "/Library/Application Support/Sidekick/Profile 1/Bookmarks";
-    case "home":
-      return "/Library/Application Support/Sidekick/Default/Bookmarks";
-    default:
-      return "/Library/Application Support/Sidekick/Default/Bookmarks";
+  // TODO: 今は手動で以下に設定する設定する必要があるため。後で自動化する
+  if (account === "work") {
+    return "/Library/Application Support/Sidekick/Profile 1/Bookmarks";
   }
+  if (account === "home") {
+    return "/Library/Application Support/Sidekick/Default/Bookmarks";
+  }
+  return "/Library/Application Support/Sidekick/Default/Bookmarks";
 };
 
 const bookmarkHandler = () => {
