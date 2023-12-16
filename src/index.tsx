@@ -27,6 +27,7 @@ const Command = () => {
         <List.Dropdown
           tooltip={"Select Account"}
           storeValue={true}
+          value={account}
           onChange={(newValue) => setAccount(newValue as AccountType)}
         >
           <List.Dropdown.Section>
