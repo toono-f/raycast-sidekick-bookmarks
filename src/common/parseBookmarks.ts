@@ -2,7 +2,6 @@ import path from "path";
 import { getPreferenceValues } from "@raycast/api";
 import { readFileSync } from "fs";
 import { defaultProfilePathSidekick } from "./constants";
-// const read = promisify(readFile);
 
 interface Preferences {
   readonly profilePathSidekick?: string;
