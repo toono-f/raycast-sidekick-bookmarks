@@ -41,13 +41,13 @@ const Command = () => {
     >
       <List.Item title={""} subtitle={`${filteredBookmarks.length} posts`} />
       {!searchText && (
-        <List.Section title={"History"}>
+        <List.Section title={"Bookmark History"}>
           {history.map((bookmark) => (
             <BookmarkListItem key={bookmark.guid} bookmark={bookmark} />
           ))}
         </List.Section>
       )}
-      <List.Section title={"Results"}>
+      <List.Section title={"Bookmark Results"}>
         {filteredBookmarks.map((bookmark) => (
           <BookmarkListItem key={bookmark.guid} bookmark={bookmark} />
         ))}
