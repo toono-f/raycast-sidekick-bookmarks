@@ -10,7 +10,7 @@ export const useHistory = (account: AccountType) => {
       const history = await getBookmarkHistory(account);
       setHistory(history);
     })();
-  }, [setHistory]);
+  }, [setHistory, account]);
 
   return history;
 };
