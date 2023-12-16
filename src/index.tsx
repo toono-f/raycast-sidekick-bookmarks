@@ -17,6 +17,7 @@ const Command = () => {
   );
 
   const history = useHistory();
+  // 履歴に関するエラーが発生したら下記でローカルストレージをクリア
   // useEffect(() => LocalStorage.clear(), []);
 
   return (

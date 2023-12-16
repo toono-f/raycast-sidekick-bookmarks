@@ -14,7 +14,7 @@ export const BookmarkListItem = ({ bookmark }: Props) => {
       icon={getFavicon(bookmark.url)}
       title={bookmark.name}
       subtitle={bookmark.url}
-      // TODO: フォルダ情報を記載する
+      // TODO: フォルダ情報を記載したい
       // accessories={[{ icon: folder.icon, tag: folder.name }]}
       actions={
         <ActionPanel>
