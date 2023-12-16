@@ -16,7 +16,7 @@ const Command = () => {
     [bookmarks, searchText]
   );
 
-  const history = useHistory();
+  const history = useHistory(account);
   // 履歴に関するエラーが発生したら下記でローカルストレージをクリア
   // useEffect(() => LocalStorage.clear(), []);
 
@@ -44,13 +44,21 @@ const Command = () => {
       {!searchText && (
         <List.Section title={"Bookmark History"}>
           {history.map((bookmark) => (
-            <BookmarkListItem key={bookmark.guid} bookmark={bookmark} />
+            <BookmarkListItem
+              key={bookmark.guid}
+              bookmark={bookmark}
+              account={account}
+            />
           ))}
         </List.Section>
       )}
       <List.Section title={"Bookmark Results"}>
         {filteredBookmarks.map((bookmark) => (
-          <BookmarkListItem key={bookmark.guid} bookmark={bookmark} />
+          <BookmarkListItem
+            key={bookmark.guid}
+            bookmark={bookmark}
+            account={account}
+          />
         ))}
       </List.Section>
     </List>

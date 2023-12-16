@@ -2,13 +2,14 @@ import { Action, ActionPanel, List, LocalStorage, open } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
 
 import { getBookmarkHistory } from "../common/getBookmarkHistory";
-import { BookmarkType } from "../common/parseBookmarks";
+import { AccountType, BookmarkType } from "../common/parseBookmarks";
 
 type Props = {
   bookmark: BookmarkType;
+  account: AccountType;
 };
 
-export const BookmarkListItem = ({ bookmark }: Props) => {
+export const BookmarkListItem = ({ bookmark, account }: Props) => {
   return (
     <List.Item
       icon={getFavicon(bookmark.url)}
@@ -21,7 +22,7 @@ export const BookmarkListItem = ({ bookmark }: Props) => {
           <ActionPanel.Section>
             <Action
               title="Open in Browser"
-              onAction={() => updateHistoryAndOpenBookmark(bookmark)}
+              onAction={() => updateHistoryAndOpenBookmark(bookmark, account)}
             />
           </ActionPanel.Section>
         </ActionPanel>
@@ -30,10 +31,16 @@ export const BookmarkListItem = ({ bookmark }: Props) => {
   );
 };
 
-const updateHistoryAndOpenBookmark = async (bookmark: BookmarkType) => {
-  const history = await getBookmarkHistory();
+const updateHistoryAndOpenBookmark = async (
+  bookmark: BookmarkType,
+  account: AccountType
+) => {
+  const history = await getBookmarkHistory(account);
   const uniqueHistory = history.filter((item) => item.url !== bookmark.url);
   const updatedHistory = [bookmark, ...uniqueHistory].slice(0, 7);
-  await LocalStorage.setItem("history", JSON.stringify(updatedHistory));
+  await LocalStorage.setItem(
+    `history_${account}`,
+    JSON.stringify(updatedHistory)
+  );
   open(bookmark.url);
 };

@@ -1,9 +1,11 @@
 import { LocalStorage } from "@raycast/api";
 
-import { BookmarkType } from "./parseBookmarks";
+import { AccountType, BookmarkType } from "./parseBookmarks";
 
-export const getBookmarkHistory = async (): Promise<BookmarkType[]> => {
-  const bookmarkHistoryData = await LocalStorage.getItem("history");
+export const getBookmarkHistory = async (
+  account: AccountType
+): Promise<BookmarkType[]> => {
+  const bookmarkHistoryData = await LocalStorage.getItem(`history_${account}`);
   return typeof bookmarkHistoryData === "string"
     ? JSON.parse(bookmarkHistoryData)
     : [];
