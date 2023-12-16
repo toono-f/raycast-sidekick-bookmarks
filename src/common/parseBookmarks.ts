@@ -1,6 +1,8 @@
+import path from "path";
+import { getPreferenceValues } from "@raycast/api";
 import { readFileSync } from "fs";
-import { homedir } from "os";
-import { join } from "path";
+import { Preferences } from "../interfaces";
+import { defaultProfilePathSidekick } from "../constants";
 // const read = promisify(readFile);
 
 type NodeType = {
@@ -16,7 +18,7 @@ export type AccountType = "default" | "profile";
 export type BookmarkType = Pick<NodeType, "name" | "url" | "guid">;
 
 export const parseBookmarks = (account: AccountType): BookmarkType[] => {
-  const bookmarkPath = join(homedir(), selectAcount(account));
+  const bookmarkPath = selectAcount(account);
 
   const data = readFileSync(bookmarkPath, "utf-8");
 
@@ -31,12 +33,22 @@ export const parseBookmarks = (account: AccountType): BookmarkType[] => {
   return bookmarks;
 };
 
-const selectAcount = (account: AccountType) => {
-  // TODO: 今は手動で以下に設定する設定する必要がある
-  if (account === "profile") {
-    return "/Library/Application Support/Sidekick/Profile 1/Bookmarks";
+const userLibraryDirectoryPath = () => {
+  if (!process.env.HOME) {
+    throw new Error("$HOME environment variable is not set.");
   }
-  return "/Library/Application Support/Sidekick/Default/Bookmarks";
+
+  return path.join(process.env.HOME, "Library");
+};
+
+const selectAcount = (account: AccountType) => {
+  const { profilePathSidekick } = getPreferenceValues<Preferences>();
+  const userDataDirectory = userLibraryDirectoryPath();
+
+  if (profilePathSidekick && account === "profile") {
+    return path.join(profilePathSidekick, "Bookmarks");
+  }
+  return path.join(userDataDirectory, ...defaultProfilePathSidekick);
 };
 
 const bookmarkHandler = () => {

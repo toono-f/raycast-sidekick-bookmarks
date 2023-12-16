@@ -6,12 +6,62 @@
   "icon": "sidekick-logo.png",
   "author": "toono-f",
   "license": "MIT",
+  "categories": [
+    "Applications",
+    "Developer Tools",
+    "Productivity",
+    "System"
+  ],
   "commands": [
     {
       "name": "index",
       "title": "Sidekick bookmarks search",
       "description": "Sidekick bookmarks search.",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "firstInResults",
+          "type": "dropdown",
+          "required": false,
+          "title": "First in results",
+          "description": "Which browser history shows up first in results",
+          "data": [
+            {
+              "title": "Sidekick",
+              "value": "Sidekick"
+            }
+          ]
+        },
+        {
+          "name": "defaultBrowser",
+          "type": "dropdown",
+          "required": false,
+          "title": "Default browser to open in",
+          "description": "Which browser opens upon pressing enter on an entry",
+          "data": [
+            {
+              "title": "Sidekick",
+              "value": "Sidekick"
+            }
+          ]
+        },
+        {
+          "name": "enableSidekick",
+          "type": "checkbox",
+          "required": false,
+          "description": "Enable Firefox history to show up in results",
+          "default": false,
+          "label": "Sidekick"
+        },
+        {
+          "name": "profilePathSidekick",
+          "type": "textfield",
+          "required": false,
+          "title": "Sidekick Profile Path",
+          "description": "Path to Sidekick profile folder. Leave empty to use default profile. Default at /Users/username/Library/Application Support/Sidekick/Default",
+          "placeholder": "/Users/username/Library/Application Support/Sidekick/Default"
+        }
+      ]
     }
   ],
   "dependencies": {
