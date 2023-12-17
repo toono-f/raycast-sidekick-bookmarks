@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "sidekick-bookmarks",
-  "title": "Sidekick Bookmarks",
-  "description": "Search sidekick bookmarks",
+  "name": "search-sidekick-bookmarks",
+  "title": "Search Sidekick Bookmarks",
+  "description": "Search Sidekick bookmarks",
   "icon": "sidekick-logo.png",
   "author": "toono-f",
   "license": "MIT",
@@ -15,7 +15,7 @@
   "commands": [
     {
       "name": "index",
-      "title": "Sidekick Bookmarks",
+      "title": "Search Sidekick Bookmarks",
       "description": "Search sidekick bookmarks",
       "mode": "view",
       "preferences": [
